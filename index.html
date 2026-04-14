@@ -151,6 +151,31 @@
 			max-width: 180px;
 			height: auto;
 		}
+
+		.copy-button {
+			margin-top: 12px;
+			padding: 8px 16px;
+			background: #0b69a3;
+			color: #ffffff;
+			border: none;
+			border-radius: 6px;
+			font-size: 13px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.copy-button:hover {
+			background: #0a5280;
+		}
+
+		.copy-button:active {
+			background: #084060;
+		}
+
+		.copy-button.copied {
+			background: #27ae60;
+		}
 	</style>
 </head>
 <body>
@@ -171,6 +196,7 @@
 			<article class="signature-item">
 				<h2>Austin Hoffman - SteelSupplyLP.com</h2>
 				<p>Simplified signature for Austin Hoffman.</p>
+				<button class="copy-button" onclick="copySignature(this)">Copy Signature</button>
 				<div class="signature-card">
 					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.25; color: #000000;">
 						<div style="font-weight: 700; margin-bottom: 2px;">Austin Hoffman</div>
@@ -184,6 +210,7 @@
 			<article class="signature-item">
 				<h2>Marshall Hoffman - SteelSupplyLP.com</h2>
 				<p>Simplified signature for Marshall Hoffman.</p>
+				<button class="copy-button" onclick="copySignature(this)">Copy Signature</button>
 				<div class="signature-card">
 					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.25; color: #000000;">
 						<div style="font-weight: 700; margin-bottom: 2px;">Marshall Hoffman</div>
@@ -195,6 +222,7 @@
 			<article class="signature-item">
 				<h2>Arlene Hoffman - Maison &amp; Tavola</h2>
 				<p>Signature for Arlene Hoffman.</p>
+				<button class="copy-button" onclick="copySignature(this)">Copy Signature</button>
 				<div class="signature-card">
 					<div style="font-family: Georgia, Times, 'Times New Roman', serif, 'Times New Roman', Times, serif; font-size: 14px; line-height: 1.25; color: #000000;">
 						<div style="font-weight: 700; margin-bottom: 2px;">Arlene Hoffman</div>
@@ -207,6 +235,7 @@
 			<article class="signature-item">
 				<h2>William Bauer - SteelSupplyLP.com</h2>
 				<p>Simplified signature for William Bauer</p>
+				<button class="copy-button" onclick="copySignature(this)">Copy Signature</button>
 				<div class="signature-card">
 					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.25; color: #000000;">
 						<div style="font-weight: 700; margin-bottom: 2px;">William Bauer</div>
@@ -221,6 +250,7 @@
 			<article class="signature-item">
 				<h2>Anne Byington - SteelSupplyLP.com</h2>
 				<p>Simplified signature for Anne Byington.</p>
+				<button class="copy-button" onclick="copySignature(this)">Copy Signature</button>
 				<div class="signature-card">
 					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.25; color: #000000;">
 						<div style="font-weight: 700; margin-bottom: 2px;">Anne Byington</div>
@@ -234,5 +264,32 @@
 			</article>
 		</section>
 	</main>
+	<script>
+		function copySignature(button) {
+			const signatureCard = button.nextElementSibling;
+			const range = document.createRange();
+			range.selectNode(signatureCard.firstElementChild);
+			
+			const selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+			
+			try {
+				document.execCommand('copy');
+				const originalText = button.textContent;
+				button.textContent = 'Copied!';
+				button.classList.add('copied');
+				
+				setTimeout(() => {
+					button.textContent = originalText;
+					button.classList.remove('copied');
+				}, 2000);
+			} catch (err) {
+				alert('Failed to copy. Please select the signature manually.');
+			}
+			
+			selection.removeAllRanges();
+		}
+	</script>
 </body>
 </html>
